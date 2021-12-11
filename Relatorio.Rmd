@@ -1,0 +1,36 @@
+---
+title: "Relatorio para Disciplina Analytcs Descritiva"
+author: "Carlos Augusto"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+```{r}
+library(tidyverse)
+## Leitura dos dados
+survey <- read_csv("dados/kaggle_survey_2021_responses.csv", 
+                   locale = locale())
+
+## Separação da primeira linha com a descr. da variável
+descricao_survey <- survey %>% 
+  slice(n = 1)
+
+# Observações da base
+survey_limpo <- survey %>% 
+  slice(n = 2:n()) # n() total de linhas na base
+
+survey_limpo %>% 
+  count(Q2) %>% 
+  arrange(-n)
+
+```
+
+
+## Stay Tuned
+
+Please visit the [development page](https://github.com/yixuan/prettydoc/) of the 
+`prettydoc` package for latest updates and news. Comments, bug reports and
+pull requests are always welcome.
