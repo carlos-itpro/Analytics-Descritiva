@@ -4,11 +4,23 @@ author: "Carlos Augusto"
 date: "`r Sys.Date()`"
 output:
   prettydoc::html_pretty:
-    theme: tactile
+    theme: cayman
     highlight: github
 ---
 
-```{r}
+## A New Output Format
+
+> Minha frase importante
+
+Lista:
+
+1. Elemento 1
+1. Elemento 2
+1. Elemento 3
+
+**Negrito**  *itálico* `html`
+
+```{r dados}
 library(tidyverse)
 ## Leitura dos dados
 survey <- read_csv("dados/kaggle_survey_2021_responses.csv", 
@@ -21,12 +33,36 @@ descricao_survey <- survey %>%
 # Observações da base
 survey_limpo <- survey %>% 
   slice(n = 2:n()) # n() total de linhas na base
+```
 
+
+## Descrição da variável Q2: Gênero
+
+### Tabela
+
+```{r, echo=TRUE}
+tabela_genero <- arrange(count(survey_limpo, Q2), -n)
+#survey_limpo %>% count(Q2) %>% arrange(-n) %>% kable()
+
+knitr::kable(tabela_genero)
+```
+
+### Gráfico de Barras
+
+Meu lindo gráfico de barras a seguir
+```{r, echo=TRUE, eval=TRUE}
 survey_limpo %>% 
   count(Q2) %>% 
-  arrange(-n)
-
+  ggplot() +
+    geom_bar(aes(x = reorder(Q2, n), 
+                 y = n, fill = Q2) , 
+             stat = "identity", show.legend = FALSE
+             ) +
+  coord_flip() + ylab("Total de Ocorrências") + xlab("Gênero") +
+  labs(fill = "Gênero")
 ```
+
+
 
 
 ## Stay Tuned
