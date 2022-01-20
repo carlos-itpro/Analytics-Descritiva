@@ -1,4 +1,4 @@
-### Analytcs-Descritiva
+### Analytics-Descritiva
 Projeto Inicial - Aula 01
 
 
